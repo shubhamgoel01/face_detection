@@ -1,0 +1,32 @@
+What's 0xFF for in cv2.waitKey(1)?
+
+if cv2.waitKey(0) & 0xFF == ord('q'):
+    break
+
+
+0xFF is a hexadecimal constant which is 11111111 in binary.
+By using bitwise AND (&) with this constant, it leaves only the last 8 bits of the original 
+(in this case, whatever cv2.waitKey(0) is).
+
+86
+
+It is also important to note that ord('q') can return different numbers if you have NumLock activated (maybe it is also happening with other keys). For example, when pressing c, the code:
+
+key = cv2.waitKey(10) 
+print(key) 
+returns
+
+ 1048675 when NumLock is activated 
+ 99 otherwise
+Converting these 2 numbers to binary we can see:
+
+1048675 = 100000000000001100011
+99 = 1100011
+
+As we can see, the last byte is identical. Then it is necessary to take just this last byte as the rest is caused because of the state of NumLock. Thus, we perform:
+
+key = cv2.waitKey(33) & 0b11111111  
+# 0b11111111 is equivalent to 0xFF
+and the value of key will remain the same and now we can compare it with any key we would like such as your question
+
+if key == ord('q'):
