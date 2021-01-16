@@ -1,6 +1,7 @@
-# face_detection using camera -> cv2.VideoCapture(0)
+# face_detection using camera 
+cv2.VideoCapture(0)
 
-For Eyes Detection -------Just Replace the HaarCascade file
+For Eyes Detection -------Just Replace the "haarcascade_frontalcatface" to "haarcascade_eye"
 
 face_detection using Picture -> cv2.VideoCapture("12.jpg")
 
